@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Resumes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #EEF2FF;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .back-button {
+            background: #DC3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .back-button:hover {
+            background: #C82333;
+        }
+
+        .page-title {
+            color: #1E40AF;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .resume-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resume-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resume-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .resume-image {
+            width: 100%;
+            height: 300px;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #E2E8F0;
+            overflow: hidden;
+            position: relative;
+            padding: 1rem;
+        }
+
+        .resume-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            max-width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .resume-image .fallback {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            color: #1E40AF;
+        }
+
+        .resume-card:hover .resume-image img {
+            transform: scale(1.03);
+        }
+
+        .resume-content {
+            padding: 1.5rem;
+        }
+
+        .resume-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E40AF;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-description {
+            color: #4B5563;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .resume-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1E40AF;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .resume-button:hover {
+            background: #1E3A8A;
+        }
+
+        .section-title {
+            color: #1E40AF;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #E2E8F0;
+        }
+
+        @media (max-width: 768px) {
+            .resume-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <a href="dashboard.php" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+            <h1 class="page-title">Sample Resumes</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2 class="section-title">Entry Level Resumes</h2>
+            <div class="resume-grid">
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/it-resume.png" alt="IT Professional Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">IT Professional Resume</h3>
+                        <p class="resume-description">
+                            Perfect for entry-level IT positions. Highlights technical skills, 
+                            certifications, and relevant projects.
+                        </p>
+                        <a href="samples/it-resume.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/business-analyst.png" alt="Business Analyst Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Business Analyst Resume</h3>
+                        <p class="resume-description">
+                            Ideal for fresh graduates in business analysis. Emphasizes analytical 
+                            skills and academic projects.
+                        </p>
+                        <a href="samples/business-analyst.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/software-developer.png" alt="Software Developer Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Software Developer Resume</h3>
+                        <p class="resume-description">
+                            For entry-level developers. Showcases programming skills, 
+                            projects, and internships.
+                        </p>
+                        <a href="samples/software-developer.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/entry-dataanalyst.png" alt="Data Analyst Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Data Analyst Resume</h3>
+                        <p class="resume-description">
+                            For data analysis roles. Highlights analytical tools, 
+                            statistical skills, and relevant projects.
+                        </p>
+                        <a href="samples/entry-dataanalyst.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/marketing-sp.png" alt="Marketing Specialist Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Marketing Specialist Resume</h3>
+                        <p class="resume-description">
+                            For digital marketing roles. Features social media skills, 
+                            campaign experience, and metrics.
+                        </p>
+                        <a href="samples/marketing_sp.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 3rem;">
+            <h2 class="section-title">Professional Resumes</h2>
+            <div class="resume-grid">
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/senior engineer.png" alt="Senior Software Engineer Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Senior Software Engineer</h3>
+                        <p class="resume-description">
+                            For experienced developers. Highlights technical leadership, 
+                            project management, and key achievements.
+                        </p>
+                        <a href="samples/senior engineer.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/project-manager.png" alt="Project Manager Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Project Manager Resume</h3>
+                        <p class="resume-description">
+                            For experienced PMs. Showcases project delivery, 
+                            team leadership, and business impact.
+                        </p>
+                        <a href="samples/project-manager.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/product-manager.png" alt="Product Manager Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Product Manager Resume</h3>
+                        <p class="resume-description">
+                            For product professionals. Features product strategy, 
+                            roadmap planning, and stakeholder management.
+                        </p>
+                        <a href="samples/product-manager.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/data-science.png" alt="Data Scientist Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Data Scientist Resume</h3>
+                        <p class="resume-description">
+                            For experienced data scientists. Highlights ML/AI projects, 
+                            research, and business impact.
+                        </p>
+                        <a href="samples/data-science.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/marketing-manager.png" alt="Marketing Manager Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Marketing Manager Resume</h3>
+                        <p class="resume-description">
+                            For marketing leaders. Features campaign management, 
+                            team leadership, and ROI metrics.
+                        </p>
+                        <a href="samples/marketing-manager.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/professional-resume.png" alt="Professional Resume Template Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Professional Resume Template</h3>
+                        <p class="resume-description">
+                            A well-structured professional resume template. Perfect for various 
+                            job applications and career levels.
+                        </p>
+                        <a href="samples/professional-resume.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/technical-resume.png" alt="Technical Resume Template Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Technical Resume Template</h3>
+                        <p class="resume-description">
+                            Ideal for technical roles. Emphasizes technical skills, 
+                            projects, and certifications.
+                        </p>
+                        <a href="samples/technical-resume.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-image">
+                        <img src="images/professional-experience.png" alt="Professional Experience Resume Preview">
+                    </div>
+                    <div class="resume-content">
+                        <h3 class="resume-title">Professional Experience Resume</h3>
+                        <p class="resume-description">
+                            For experienced professionals. Highlights work experience, 
+                            achievements, and leadership roles.
+                        </p>
+                        <a href="samples/professional-experience.pdf" class="resume-button" download>
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .back-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #2980b9;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .upload-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: #2980b9;
+            background: #f1f5f9;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .upload-format {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .file-info {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: #e8f4fc;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .file-info.visible {
+            display: flex;
+        }
+
+        .file-name {
+            color: #2c3e50;
+            font-weight: 500;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .remove-file {
+            color: #e74c3c;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .remove-file:hover {
+            background: #fde8e7;
+        }
+
+        .form-label {
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.75rem;
+            resize: vertical;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        .analyze-btn {
+            background: #3498db;
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .analyze-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        #resume {
+            display: none;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results-section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-section.visible {
+            display: block;
+        }
+
+        .analysis-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.8;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .analysis-text p {
+            margin-bottom: 1.2rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .analysis-text p::before {
+            content: '•';
+            position: absolute;
+            left: 0.5rem;
+            color: #3498db;
+            font-size: 1.2rem;
+        }
+
+        /* Special styling for headings (lines with strong tags) */
+        .analysis-text p strong:first-child {
+            display: block;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            margin-left: -1.5rem;
+        }
+
+        /* Remove bullet for heading paragraphs */
+        .analysis-text p:has(strong:first-child)::before {
+            content: none;
+        }
+
+        .analysis-text strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #3498db;
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink 0.75s step-end infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes blink {
+            from, to { opacity: 0; }
+            50% { opacity: 0.8; }
+        }
+
+        .analysis-text p {
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .result-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .generating-text {
+            color: #3498db;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot-animation {
+            display: inline-block;
+            animation: dotAnimation 1.4s infinite;
+        }
+
+        @keyframes dotAnimation {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="dashboard.php" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+
+            <h1>Resume Analyzer</h1>
+
+        <form id="analyzerForm" onsubmit="analyzeResume(event)">
+        <div class="upload-section">
+                <label for="resume" class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">Drag & drop your resume or click to browse</div>
+                        <div class="upload-format">Supported format: PDF</div>
+                </div>
+                    <div class="file-info" id="fileInfo">
+                        <i class="fas fa-file-pdf"></i>
+                        <p class="file-name" id="fileName"></p>
+                        <i class="fas fa-times remove-file" onclick="removeFile(event)"></i>
+                </div>
+                </label>
+                <input type="file" id="resume" accept=".pdf" required>
+
+                <div class="form-group mt-4">
+                    <label for="jobDescription" class="form-label">
+                        <i class="fas fa-briefcase"></i>
+                        Job Description
+                    </label>
+                    <textarea 
+                        id="jobDescription" 
+                        class="form-control" 
+                        rows="6" 
+                        required 
+                        placeholder="Paste the job description here..."></textarea>
+        </div>
+
+                <button type="submit" class="analyze-btn mt-4">
+                    <i class="fas fa-magic"></i>
+                    ANALYZE RESUME
+                </button>
+            </div>
+        </form>
+
+        <div id="results" class="results-section">
+            <div class="generating-text" id="generatingText" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Generating analysis</span>
+                <span class="dot-animation"></span>
+            </div>
+            <div id="analysisText" class="analysis-text"></div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileInput = document.getElementById('resume');
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Highlight drop zone when file is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        // Handle dropped files
+        uploadArea.addEventListener('drop', handleDrop, false);
+
+        function preventDefaults (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function highlight(e) {
+            uploadArea.classList.add('highlight');
+        }
+
+        function unhighlight(e) {
+            uploadArea.classList.remove('highlight');
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        fileInput.addEventListener('change', function(e) {
+            handleFiles(this.files);
+        });
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type === 'application/pdf') {
+                    fileName.textContent = file.name;
+                    fileInfo.classList.add('visible');
+                    document.querySelector('.upload-content').style.display = 'none';
+                } else {
+                    alert('Please upload a PDF file');
+                    fileInput.value = '';
+                }
+            }
+        }
+
+        function removeFile(e) {
+            e.preventDefault();
+            fileInput.value = '';
+            fileInfo.classList.remove('visible');
+            document.querySelector('.upload-content').style.display = 'block';
+        }
+
+        // Your existing analyzeResume function
+        function analyzeResume(event) {
+            event.preventDefault();
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            const resumeFile = document.getElementById('resume').files[0];
+            const jobDescription = document.getElementById('jobDescription').value;
+
+            if (!resumeFile || !jobDescription) {
+                alert('Please upload a resume and enter a job description.');
+                document.getElementById('loadingOverlay').style.display = 'none';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('resume', resumeFile);
+            formData.append('jobDescription', jobDescription);
+
+            fetch('http://127.0.0.1:5000/analyze', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("🔄 Server Response:", data);
+                document.getElementById('loadingOverlay').style.display = 'none';
+
+                const results = document.getElementById('results');
+                const output = document.getElementById('analysisText');
+                const generatingText = document.getElementById('generatingText');
+                
+                results.classList.add('visible');
+                output.innerHTML = '';
+                generatingText.style.display = 'flex';
+
+                if (data.success) {
+                    // Clean and format the text
+                    let cleanText = data.analysis
+                        .replace(/\\/g, '')
+                        .replace(/^\* /gm, '') // Remove asterisks at the start of lines
+                        .replace(/<strong>(.*?)<\/strong>/g, '**$1**')
+                        .split('\n')
+                        .filter(para => para.trim() !== '');
+
+                    results.scrollIntoView({ behavior: 'smooth' });
+
+                    let currentParagraphIndex = 0;
+                    let currentCharIndex = 0;
+                    let currentParagraphElement = document.createElement('p');
+                    output.appendChild(currentParagraphElement);
+
+                    const cursor = document.createElement('span');
+                    cursor.className = 'typing-cursor';
+
+                    function processText(text) {
+                        return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    }
+
+                    function typeNextCharacter() {
+                        if (currentParagraphIndex < cleanText.length) {
+                            const currentParagraph = cleanText[currentParagraphIndex];
+                            
+                            if (currentCharIndex < currentParagraph.length) {
+                                // Adjust chunk size and timing for medium speed
+                                const chunkSize = 3; // Reduced from 5 to 3 characters at a time
+                                const endIndex = Math.min(currentCharIndex + chunkSize, currentParagraph.length);
+                                
+                                if (cursor.parentNode) {
+                                    cursor.remove();
+                                }
+                                
+                                const textUpToCurrent = currentParagraph.substring(0, endIndex);
+                                let processedText = processText(textUpToCurrent);
+                                
+                                currentParagraphElement.innerHTML = processedText;
+                                currentParagraphElement.appendChild(cursor);
+                                
+                                currentCharIndex = endIndex;
+                                setTimeout(typeNextCharacter, 25); // Increased from 5ms to 25ms
+                            } else {
+                                if (cursor.parentNode) {
+                                    cursor.remove();
+                                }
+                                
+                                currentParagraphElement.innerHTML = processText(currentParagraph);
+                                
+                                currentParagraphIndex++;
+                                currentCharIndex = 0;
+                                
+                                if (currentParagraphIndex < cleanText.length) {
+                                    currentParagraphElement = document.createElement('p');
+                                    output.appendChild(currentParagraphElement);
+                                    currentParagraphElement.appendChild(cursor);
+                                    setTimeout(typeNextCharacter, 100); // Increased from 50ms to 100ms for paragraph breaks
+                                } else {
+                                    cursor.remove();
+                                    generatingText.style.display = 'none';
+                                }
+                            }
+                        }
+                    }
+
+                    // Start typing with moderate initial delay
+                    setTimeout(typeNextCharacter, 300); // Increased from 200ms to 300ms
+
+                } else {
+                    generatingText.style.display = 'none';
+                    output.innerHTML = `<p style="color:red;"><strong>Error:</strong> ${data.error || 'Unexpected error occurred.'}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error('❌ JS Fetch Error:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                document.getElementById('generatingText').style.display = 'none';
+                alert('Failed to analyze resume. Please check if the backend is running.');
+            });
+        }
+    </script>
+</body>
+</html>

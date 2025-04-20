@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #EEF2FF;  /* Light blue background */
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #FEE2E2;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            color: #DC2626;
+            font-size: 14px;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            color: #4A5568;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #4A5568;
+            transition: all 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #1E40AF;  /* Dark blue */
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        input::placeholder {
+            color: #A0AEC0;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #A0AEC0;
+            cursor: pointer;
+        }
+
+        .requirements {
+            margin-top: 16px;
+            padding: 16px;
+            background: #F8FAFC;
+            border-radius: 8px;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .requirement:last-child {
+            margin-bottom: 0;
+        }
+
+        .requirement i {
+            font-size: 14px;
+        }
+
+        .requirement.valid {
+            color: #059669;  /* Green */
+        }
+
+        .requirement.invalid {
+            color: #718096;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #1E40AF;  /* Dark blue */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover:not(:disabled) {
+            background: #1E3A8A;  /* Darker blue */
+        }
+
+        button:disabled {
+            background: #E2E8F0;
+            cursor: not-allowed;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .links a {
+            color: #1E40AF;  /* Dark blue */
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Account</h1>
+        
+        <div id="errorMessage" class="error-message">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorText"></span>
+        </div>
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <input type="text" id="username" name="username" 
+                           placeholder="Enter your username" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" 
+                           placeholder="Enter your password" required>
+                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+                
+                <div class="requirements">
+                    <div class="requirement" id="lengthReq">
+                        <i class="fas fa-circle"></i>
+                        Minimum 8 characters
+                    </div>
+                    <div class="requirement" id="uppercaseReq">
+                        <i class="fas fa-circle"></i>
+                        One uppercase letter
+                    </div>
+                    <div class="requirement" id="lowercaseReq">
+                        <i class="fas fa-circle"></i>
+                        One lowercase letter
+                    </div>
+                    <div class="requirement" id="digitReq">
+                        <i class="fas fa-circle"></i>
+                        One number
+                    </div>
+                    <div class="requirement" id="symbolReq">
+                        <i class="fas fa-circle"></i>
+                        One special character (!@#$%^&*?)
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="submitButton" disabled>Create Account</button>
+        </form>
+
+        <div class="links">
+            <a href="login.html">Already have an account? Login here</a>
+            <a href="mainn.html">Back to Main Page</a>
+        </div>
+    </div>
+
+    <script>
+        const password = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const submitButton = document.getElementById('submitButton');
+        const requirements = {
+            length: { 
+                regex: /.{8,}/, 
+                element: document.getElementById('lengthReq') 
+            },
+            uppercase: { 
+                regex: /[A-Z]/, 
+                element: document.getElementById('uppercaseReq') 
+            },
+            lowercase: { 
+                regex: /[a-z]/, 
+                element: document.getElementById('lowercaseReq') 
+            },
+            digit: { 
+                regex: /[0-9]/, 
+                element: document.getElementById('digitReq') 
+            },
+            symbol: { 
+                regex: /[!@#$%^&*?]/, 
+                element: document.getElementById('symbolReq') 
+            }
+        };
+
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        password.addEventListener('input', function() {
+            let valid = true;
+            const value = this.value;
+
+            for (const [key, requirement] of Object.entries(requirements)) {
+                const isValid = requirement.regex.test(value);
+                requirement.element.classList.toggle('valid', isValid);
+                requirement.element.querySelector('i').className = 
+                    `fas ${isValid ? 'fa-check-circle' : 'fa-circle'}`;
+                valid = valid && isValid;
+            }
+
+            submitButton.disabled = !valid;
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            
+            fetch('signup.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                    return;
+                }
+                
+                return response.text().then(text => {
+                    if (!response.ok) {
+                        throw new Error(text);
+                    }
+                });
+            })
+            .catch(error => {
+                showError(error.message || 'An error occurred. Please try again.');
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Create Account';
+            });
+        });
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            errorText.textContent = message;
+            errorDiv.classList.add('show');
+
+            setTimeout(() => {
+                errorDiv.classList.remove('show');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

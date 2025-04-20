@@ -1,0 +1,189 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #EEF2FF;
+    min-height: 100vh;
+}
+
+/* Header/Navigation */
+header {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #1E40AF;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+}
+
+.login-link {
+    color: #1E40AF;
+    font-weight: 500;
+}
+
+.signup-link {
+    background: #1E40AF;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.signup-link:hover {
+    background: #1E3A8A;
+}
+
+/* Main content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.hero-content h1 {
+    color: #1E40AF;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.hero-content p {
+    color: #4B5563;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.get-started {
+    background: #1E40AF;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.get-started:hover {
+    background: #1E3A8A;
+}
+
+.sign-up {
+    background: #EEF2FF;
+    color: #1E40AF;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.sign-up:hover {
+    background: #DBEAFE;
+}
+
+.hero-image {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Why Choose Us section */
+.why-choose-us {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.why-choose-us h2 {
+    color: #1E40AF;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 48px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-content h1 {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 640px) {
+    header {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    main {
+        padding: 2rem 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
