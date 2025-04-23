@@ -10,7 +10,7 @@ from typing import Dict, Union, Optional
 
 # Load environment variables and configure API
 load_dotenv()
-api_key = os.getenv("GOOGLE_API_KEY", "AIzaSyBSe66nRNUzSakt7PcVXaLqhFj2LRL8jws")
+api_key = os.getenv("GOOGLE_API_KEY", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 genai.configure(api_key=api_key)
 
 # Initialize Flask app
